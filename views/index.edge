@@ -1,0 +1,59 @@
+@layout('layouts.app')
+
+@section('content')
+
+<!-- Page Header -->
+<header class="masthead" style="background-color: #817e9f;">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="site-heading">
+          <h1>Assignment 03 - NodeJS Blog</h1>
+          <span class="subheading">A blog for Griffith Web Technologies module</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+      
+      @each(post in posts)
+
+        <div class="post-preview">
+          <a href="/post/{{ post._id }}">
+            <h2 class="post-title">{{ post.title }}</h2>
+            <h3 class="post-subtitle">{{ post.subtitle }}</h3>
+          </a>
+          @if(post.createdAt - post.updatedAt == 0)
+          <p class="post-meta">Posted by
+            <a href="#">{{ post.author.username }}</a>
+            on {{ post.updatedAt.toUTCString() }}
+          </p>
+          @else
+          <p class="post-meta">Last updated by
+            <a href="#">{{ post.author.username }}</a>
+            on {{ post.updatedAt.toUTCString() }}
+          </p>
+          @endif
+        </div>
+
+        <hr>
+
+      @endeach
+
+      <!-- Pager -->
+      <div class="clearfix">
+        <a class="btn btn-primary float-right" href="/posts">Older Posts &rarr;</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+@endsection

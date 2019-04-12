@@ -1,0 +1,12 @@
+/* Color picker */
+.picker {
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* Post actions */
+.post-actions {
+  padding-top: 50px;
+}

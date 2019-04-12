@@ -1,0 +1,65 @@
+@layout('layouts.app')
+
+@section('content')
+
+<!-- Page Header -->
+<header class="masthead" style="background-color: {{ post.backgroundColor }}">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="post-heading">
+          <h1>{{ post.title }}</h1>
+          <h2 class="subheading">{{ post.subtitle }}</h2>
+          <span class="meta">Posted by
+            <a href="#">{{ post.author.username }}</a>
+            on {{ post.createdAt.toUTCString() }}
+          </span>
+          @if(post.updatedAt - post.createdAt != 0)
+          <span class="meta my-2" style="font-size: 1rem">Last updated by
+            <a href="#">{{ post.author.username }}</a>
+            on {{ post.updatedAt.toUTCString() }}
+          </span>
+          @endif
+          @if(auth == post.author._id)
+          <div class="post-actions container">
+            <div class="row">
+              <div class="col">
+                <ul class="list-inline">
+                  <li class="list-inline-item">
+                    <form action="/update/{{ post._id }}" method="GET">
+                      <input type="hidden" name="postID" value="{{ post._id }}">
+                      <button class="btn" style="font-size: 2rem;"><i class="fas fa-edit"></i></button>
+                    </form>
+                  </li>
+                  <li class="list-inline-item">
+                    <form action="/delete/{{ post._id }}" method="POST">
+                      <input type="hidden" name="postID" value="{{ post._id }}">
+                      <button class="btn" style="font-size: 2rem;"><i class="fas fa-trash"></i></button>
+                    </form>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          @endif
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto" style="text-align: justify">
+        {{{ post.content }}}
+      </div>
+    </div>
+  </div>
+</article>
+
+<hr>
+
+@endsection
